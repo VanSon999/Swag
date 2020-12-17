@@ -1,5 +1,6 @@
 package vanson.dev.swag.Control
 
+import android.content.res.Configuration
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
@@ -16,8 +17,16 @@ class ProductActivity : AppCompatActivity() {
         setContentView(R.layout.activity_product)
         val categoryType = intent.getStringExtra(EXTRA_CATEGORY)
         adapter = ProductsAdapter(this, DataService.getProducts(categoryType!!))
-
-        productListView.layoutManager = GridLayoutManager(this, 2)
+        var spantCount = 2
+        val orientation = resources.configuration.orientation
+        if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+            spantCount = 3
+        }
+        val screenSize = resources.configuration.screenWidthDp
+        if(screenSize > 720){
+            spantCount = 3
+        }
+        productListView.layoutManager = GridLayoutManager(this, spantCount)
         productListView.adapter = adapter
     }
 }
