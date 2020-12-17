@@ -38,7 +38,7 @@ object DataService {
         return when(category){
             "SHIRTS" -> shirts
             "HATS" -> hat
-            "HOODIES" -> hoodies
+            "HODDIES" -> hoodies
             else -> digitalGoods
         }
     }
