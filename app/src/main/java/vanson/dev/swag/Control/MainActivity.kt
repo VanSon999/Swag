@@ -1,16 +1,14 @@
 package vanson.dev.swag.Control
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.widget.ArrayAdapter
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
-import vanson.dev.swag.Adapters.CategoryAdapter
 import vanson.dev.swag.Adapters.CategoryRecycleAdapter
-import vanson.dev.swag.Model.Category
 import vanson.dev.swag.R
 import vanson.dev.swag.Services.DataService
+import vanson.dev.swag.Utilities.EXTRA_CATEGORY
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,7 +19,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        adapter = CategoryRecycleAdapter(this, DataService.categories)
+//        adapter = CategoryRecycleAdapter(this, DataService.categories)
+        adapter = CategoryRecycleAdapter(this,DataService.categories){
+            val productIntent = Intent(this, ProductActivity::class.java)
+            productIntent.putExtra(EXTRA_CATEGORY, it.title)
+            startActivity(productIntent)
+        }
         categoryListView.adapter = adapter
 
         //Use to manage position items
